@@ -1,6 +1,6 @@
 # NodeJs-Example
 
-## MinIO_NodeJs_Exampl
+## MinIO_NodeJs_Example
 **Description:** Upload image to MinIO-Server using NodeJS \
 **Build docker-compose.yml** \
 `docker compose up -d --build`
