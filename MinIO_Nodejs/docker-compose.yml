@@ -1,0 +1,33 @@
+version: '1'
+
+services:
+  server:
+    build: ./server
+    volumes:
+      - ./server/:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - "8888:8888"
+    command: npm run dev
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    links:
+      - minio_nodejs
+
+  minio:
+    image: minio/minio:latest
+    hostname: minio
+    ports:
+      - "9000:9000"
+      - "9099:9099"
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: buiquanghieu
+    volumes:
+      - ./minIO/storage-minio:/data
+    command: server --address ":9099" --console-address ":9000" /data
+    restart: always # necessary since it's failing to start sometimes
+
+volumes:
+  storage-minio:
+    external: true
